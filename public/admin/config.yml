@@ -166,6 +166,48 @@ collections:
                   required: false,
                 }
 
+          # Alternative Hero Section
+          - label: 'Alternativer Hero'
+            name: 'alternativeHero'
+            widget: 'object'
+            fields:
+              - {
+                  label: 'Sektions-ID',
+                  name: 'id',
+                  widget: 'string',
+                  required: false,
+                  hint: "Eindeutige ID für Ankerlinks (z.B. 'home')",
+                }
+              - {
+                  label: 'Einleitungstitel',
+                  name: 'introHeading',
+                  widget: 'string',
+                }
+              - {
+                  label: 'Einleitungstext',
+                  name: 'introText',
+                  widget: 'richtext',
+                  hint: 'Der Text über den Logos',
+                }
+              - label: 'Logo Elemente'
+                name: 'items'
+                widget: 'list'
+                fields:
+                  - { label: 'Logo', name: 'logo', widget: 'image' }
+                  - {
+                      label: 'Website URL',
+                      name: 'url',
+                      widget: 'string',
+                      hint: 'Vollständige URL zur Website (z.B. https://...)',
+                    }
+                  - { label: 'Titel', name: 'title', widget: 'string' }
+                  - {
+                      label: 'Beschreibung',
+                      name: 'description',
+                      widget: 'richtext',
+                      hint: 'Beschreibungstext unter dem Logo',
+                    }
+
           # Benefits Section
           - label: 'Vorteile Sektion'
             name: 'benefits'

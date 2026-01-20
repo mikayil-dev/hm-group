@@ -4,6 +4,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 
 // Section components
 import Hero from '@sections/Hero.astro';
+import AlternativeHero from '@sections/AlternativeHero.astro';
 import Benefits from '@sections/Benefits.astro';
 import ServicesSlider from '@sections/ServicesSlider.astro';
 import TextImage from '@sections/TextImage.astro';
@@ -44,6 +45,15 @@ const { title, description, seo, sections } = data;
                 ctaHref={section.ctaHref}
                 secondaryCtaText={section.secondaryCtaText}
                 secondaryCtaHref={section.secondaryCtaHref}
+              />
+            );
+          case 'alternativeHero':
+            return (
+              <AlternativeHero
+                id={section.id}
+                introHeading={section.introHeading}
+                introText={section.introText}
+                items={section.items}
               />
             );
           case 'benefits':

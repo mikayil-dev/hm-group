@@ -1,6 +1,6 @@
 {
-  "name": "MyWebSite",
-  "short_name": "HM Zulassung",
+  "name": "HM Group",
+  "short_name": "HM Group",
   "icons": [
     {
       "src": "/favicons/web-app-manifest-192x192.png",

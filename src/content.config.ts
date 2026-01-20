@@ -76,6 +76,21 @@ const pages = defineCollection({
             secondaryCtaText: z.string().optional(),
             secondaryCtaHref: z.string().optional(),
           }),
+          // Alternative Hero Section
+          z.object({
+            type: z.literal('alternativeHero'),
+            id: z.string().optional(),
+            introHeading: z.string(),
+            introText: z.string(),
+            items: z.array(
+              z.object({
+                logo: z.string(),
+                url: z.string(),
+                title: z.string(),
+                description: z.string(),
+              }),
+            ),
+          }),
           // Benefits Section
           z.object({
             type: z.literal('benefits'),

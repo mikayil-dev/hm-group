@@ -9,156 +9,28 @@
   },
   "sections": [
     {
-      "type": "hero",
+      "type": "alternativeHero",
       "id": "home",
-      "heading": "Ihr Partner für KFZ Zulassung & Transfer",
-      "text": "HM KFZ-Zulassung & Transfer steht für eine zuverlässige, strukturierte und stressfreie Abwicklung aller organisatorischen Aufgaben rund um Ihr Fahrzeug. Wir übernehmen für Sie Behördengänge, Zulassungen und Fahrzeugtransfers – damit Sie Zeit sparen und sich auf das Wesentliche konzentrieren können.\n\nAls Teil der HM Group profitieren Sie zusätzlich von einem ganzheitlichen Service.",
-      "ctaText": "Kontakt",
-      "ctaHref": "#kontakt",
-      "secondaryCtaText": "Ihre Vorteile",
-      "secondaryCtaHref": "#vorteile"
-    },
-    {
-      "type": "benefits",
-      "id": "vorteile",
-      "heading": "Ihre Vorteile",
+      "introHeading": "Alles aus einer Hand – gebündelt unter der HM Group.",
+      "introText": "Die HM Group vereint Fachkompetenz, Erfahrung und Service rund ums Fahrzeug. Ob Sachverständigenwesen, Automobile Service oder Kfz-Zulassung & Transfer – bei uns erhalten Sie klare Lösungen, kurze Wege und einen festen Ansprechpartner.",
       "items": [
         {
-          "icon": "/assets/24hour.svg",
-          "title": "Keine Wartezeiten bei Zulassungsstellen",
-          "text": "Wir übernehmen alle Behördengänge für Sie, damit Sie keine Zeit bei den Zulassungsstellen verlieren."
+          "logo": "/assets/sv-logo.svg",
+          "url": "https://hm-kfz-sv.de",
+          "title": "HM Kfz-Sachverständiger",
+          "description": "Als anerkannter und geprüfter Kfz-Sachverständiger mit fundierter technischer Ausbildung und langjähriger Berufserfahrung erstelle ich unabhängige, nachvollziehbare Gutachten."
         },
         {
-          "icon": "/assets/handshake.svg",
-          "title": "Fester Ansprechpartner",
-          "text": "Persönliche Betreuung und klare Kommunikation von Anfang an – immer ein direkter Kontakt für Ihre Anliegen."
+          "logo": "/assets/zulassung-logo.webp",
+          "url": "https://hm-zulassung.de",
+          "title": "HM Kfz-Zulassung & Transfer",
+          "description": "Mit HM Kfz-Zulassung & Transfer übernehmen wir den kompletten organisatorischen und logistischen Aufwand rund um Ihr Fahrzeug – zuverlässig und termingerecht."
         },
         {
-          "icon": "/assets/checklist.svg",
-          "title": "Zuverlässige und termingerechte Abwicklung",
-          "text": "Strukturierte Abläufe sorgen dafür, dass alle Aufgaben fristgerecht und zuverlässig erledigt werden."
-        },
-        {
-          "icon": "/assets/like.svg",
-          "title": "Transparente Kosten",
-          "text": "Fairer und transparenter Preis. Keine versteckten Gebühren oder böse Überraschungen."
-        },
-        {
-          "icon": "/assets/speed.svg",
-          "title": "Kombinierbar mit weiteren HM-Group-Dienstleistungen",
-          "text": "Profitieren Sie von unserem ganzheitlichen Service aus Automobile Service und Sachverständigenwesen."
-        }
-      ]
-    },
-    {
-      "type": "servicesSlider",
-      "id": "leistungen",
-      "heading": "Unsere Leistungen",
-      "items": [
-        {
-          "title": "An-, Ab- und Ummeldung von Fahrzeugen",
-          "text": "Wir übernehmen die komplette Abwicklung aller Zulassungsvorgänge für Sie – von der Anmeldung bis zur Abmeldung und Ummeldung Ihres Fahrzeugs."
-        },
-        {
-          "title": "Wiederzulassung außer Betrieb gesetzter Fahrzeuge",
-          "text": "Hilfe bei der Wiederzulassung von Fahrzeugen, die previously außer Betrieb gesetzt wurden. Wir kümmern uns um alle notwendigen Schritte und Unterlagen."
-        },
-        {
-          "title": "Kurzzeit- und Ausfuhrkennzeichen",
-          "text": "Schnelle Beschaffung von Kurzzeitkennzeichen für Probefahrten oder Ausfuhrkennzeichen für den Export Ihres Fahrzeugs ins Ausland."
-        },
-        {
-          "title": "Kennzeichen-Service",
-          "text": "Kompletter Service rund um Ihr Kennzeichen – von der Reservierung über die Produktion bis zur Montage auf Ihrem Fahrzeug."
-        },
-        {
-          "title": "Überführungs- und Transferfahrten innerhalb Deutschlands",
-          "text": "Sichere und zuverlässige Überführung Ihres Fahrzeugs an jeden gewünschten Ort innerhalb Deutschlands – ganz nach Ihren Wünschen."
-        }
-      ],
-      "introText": "Gerade im Alltag oder Berufsleben fehlt oft die Zeit für Zulassungsstellen, Wartezeiten oder Terminabstimmungen. Genau hier setzen wir an: mit klaren Abläufen, persönlicher Betreuung und einer transparenten Kommunikation von Anfang an.\n\nAlle unsere Leistungen hier im Überblick:"
-    },
-    {
-      "type": "textImage",
-      "id": "ueber",
-      "heading": "Ihr Partner",
-      "text": "HM KFZ-Zulassung & Transfer steht für eine zuverlässige, strukturierte und stressfreie Abwicklung aller organisatorischen Aufgaben rund um Ihr Fahrzeug. Wir übernehmen für Sie Behördengänge, Zulassungen und Fahrzeugtransfers – damit Sie Zeit sparen und sich auf das Wesentliche konzentrieren können.\n\nGerade im Alltag oder Berufsleben fehlt oft die Zeit für Zulassungsstellen, Wartezeiten oder Terminabstimmungen. Genau hier setzen wir an: mit klaren Abläufen, persönlicher Betreuung und einer transparenten Kommunikation von Anfang an.\n\nAls Teil der HM Group profitieren Sie zusätzlich von einem ganzheitlichen Service. Neben der KFZ-Zulassung und Fahrzeugüberführung stehen Ihnen auch Leistungen aus dem Automobile Service sowie dem Sachverständigenwesen zur Verfügung – alles aus einer Hand.\n\nHM KFZ-Zulassung & Transfer – wir kümmern uns um den organisatorischen Aufwand, damit Ihr Fahrzeug dort ankommt, wo es gebraucht wird.",
-      "media": "/assets/img_1096.webp",
-      "mediaAlt": "KFZ Zulassung & Transfer Service",
-      "mediaPosition": "left"
-    },
-    {
-      "type": "accordionGroups",
-      "id": "wissenswertes",
-      "heading": "Häufige Fragen",
-      "groups": [
-        {
-          "title": "Fragen zur Fahrzeugzulassung",
-          "description": "Wichtige Informationen rund um die Fahrzeugzulassung in Deutschland. Hier finden Sie Antworten auf die häufigsten Fragen zur Anmeldung, Abmeldung und Ummeldung von Fahrzeugen.",
-          "accordions": [
-            {
-              "title": "Welche Unterlagen benötige ich für die Fahrzeugzulassung?",
-              "content": "Für die Fahrzeugzulassung benötigen Sie in der Regel: Fahrzeugschein (Zulassungsbescheinigung Teil I), Fahrzeugbrief (Zulassungsbescheinigung Teil II), gültige Versicherungsbestätigung (eVB-Nummer), Personalausweis oder Reisepass, Nachweis der Hauptuntersuchung (TÜV), bei Verkauf auch Kaufvertrag."
-            },
-            {
-              "title": "Wie lange dauert eine Fahrzeugzulassung?",
-              "content": "Die Bearbeitungszeit variiert je nach Zulassungsstelle. In der Regel können Sie mit 1-2 Stunden Vorlaufzeit rechnen. Mit unserem Service sparen Sie sich die Wartezeit und wir übernehmen den gesamten Prozess für Sie."
-            },
-            {
-              "title": "Was ist der Unterschied zwischen Haupt- und Nebenwohnsitz?",
-              "content": "Der Hauptwohnsitz ist Ihr primärer Lebensmittelpunkt, der Nebenwohnsitz ein zusätzlicher Aufenthaltsort. Für die Fahrzeugzulassung ist der Hauptwohnsitz entscheidend, da das Fahrzeug dort zugelassen werden muss."
-            },
-            {
-              "title": "Wie funktioniert die Ummeldung bei Umzug?",
-              "content": "Bei einem Umzug innerhalb Deutschlands müssen Sie Ihr Fahrzeug innerhalb eines Monats ummelden. Wir kümmern uns um die komplette Abwicklung inklusive Kennzeichenänderung und allen notwendigen Dokumenten."
-            },
-            {
-              "title": "Kann ich mein Fahrzeug auch online zulassen?",
-              "content": "Ja, in vielen Bundesländern ist eine Online-Zulassung möglich. Allerdings ist der Prozess oft kompliziert und nicht für alle Fahrzeuge verfügbar. Wir übernehmen die Online-Zulassung zuverlässig für Sie."
-            },
-            {
-              "title": "Was passiert bei der Wiederzulassung eines stillgelegten Fahrzeugs?",
-              "content": "Für die Wiederzulassung benötigen Sie aktuelle TÜV-Untersuchung, gültige Versicherungsbestätigung und die originalen Zulassungsdokumente. Wir helfen Ihnen bei der Beschaffung aller Unterlagen und übernehmen die Wiederzulassung."
-            },
-            {
-              "title": "Wie hoch sind die Kosten für eine Zulassung?",
-              "content": "Die Kosten setzen sich zusammen aus Zulassungsgebühren, Kennzeichenkosten und eventuellen Servicegebühren. Wir erstellen Ihnen vorab ein transparentes Angebot mit allen Kostenpositionen."
-            }
-          ]
-        },
-        {
-          "title": "Fragen zu Fahrzeugtransfer und Überführung",
-          "description": "Alles Wichtige zur sicheren und rechtssicheren Überführung von Fahrzeugen. Hier finden Sie Antworten zu Transferfahrten, Kurzzeitkennzeichen und Ausfuhrkennzeichen.",
-          "accordions": [
-            {
-              "title": "Was ist der Unterschied zwischen Kurzzeit- und Ausfuhrkennzeichen?",
-              "content": "Kurzzeitkennzeichen sind max. 5 Tage gültig und nur in Deutschland für Probefahrten erlaubt. Ausfuhrkennzeichen sind für den Export gültig und ermöglichen die Fahrt ins Ausland bis zum Zielort."
-            },
-            {
-              "title": "Wie lange ist ein Kurzzeitkennzeichen gültig?",
-              "content": "Ein Kurzzeitkennzeichen ist maximal 5 Tage gültig. Es eignet sich perfekt für Probefahrten oder zur Überführung von Verkäufern zu Käufern innerhalb Deutschlands."
-            },
-            {
-              "title": "Benötige ich spezielle Versicherungen für Transferfahrten?",
-              "content": "Für Transferfahrten benötigen Sie eine spezielle Transfer-Versicherung, die oft im Kennzeichenpreis enthalten ist. Wir kümmern uns um die richtige Versicherung für Ihre Überführungsfahrt."
-            },
-            {
-              "title": "Welche Dokumente brauche ich für eine Überführungsfahrt?",
-              "content": "Sie benötigen: gültiges Überführungskennzeichen, Fahrzeugschein, Versicherungsbestätigung, Ihren Personalausweis und eventuell eine Vollmacht des Fahrzeughalters falls Sie nicht der Halter sind."
-            },
-            {
-              "title": "Können Sie auch internationale Überfahrten durchführen?",
-              "content": "Ja, wir organisieren auch internationale Fahrzeugüberführungen innerhalb Europas. Hierfür benötigen wir spezielle Dokumente und Ausfuhrkennzeichen – alles übernehmen wir für Sie."
-            },
-            {
-              "title": "Was kostet eine Überführungsfahrt?",
-              "content": "Die Kosten hängen ab von der Entfernung, Fahrzeugtyp und gewünschter Serviceleistung. Fordern Sie ein unverbindliches Angebot an – wir erstellen Ihnen eine transparente Kalkulation."
-            },
-            {
-              "title": "Sind meine Fahrzeuge während des Transports versichert?",
-              "content": "Ja, alle Fahrzeuge während unserer Überführungsfahrten sind umfassend versichert. Wir verwenden ausschließlich professionelle Fahrer und moderne Absicherungsmethoden."
-            }
-          ]
+          "logo": "/assets/auto-service-logo.webp",
+          "url": "https://hm-auto-service.de",
+          "title": "HM Automobile Service",
+          "description": "HM Automobile Service steht für Meisterqualität, moderne Diagnosetechnik und markenunabhängigen Service. Als deutscher Kfz-Meister mit über zehn Jahren Berufserfahrung erhalten Sie eine fachkundige Ersteinschätzung."
         }
       ]
     },

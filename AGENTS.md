@@ -227,7 +227,7 @@ Defined in `src/layouts/BaseLayout.astro`:
 | `--background`      | `#23272d`           | Page background      |
 | `--secondary`       | `#ffffff`           | Headings, emphasis   |
 | `--text`            | `#d9d9d9`           | Body text            |
-| `--accent`          | `#ff7700`           | Highlights, borders  |
+| `--accent`          | `#ffff00`           | Highlights, borders  |
 | `--gray`            | `#888888`           | Muted text           |
 | `--darkgray`        | `#333333`           | Dark backgrounds     |
 | `--header-height`   | `80px`              | Sticky header height |
