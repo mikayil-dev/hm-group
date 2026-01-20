@@ -146,6 +146,7 @@ const logo = await getCollection('settings').then(
   }
 
   header {
+    display: none;
     overflow: hidden;
     position: sticky;
     top: 0;
@@ -190,6 +191,8 @@ const logo = await getCollection('settings').then(
     }
 
     nav {
+      display: none;
+
       ul {
         height: 100%;
         display: flex;
@@ -369,7 +372,7 @@ const logo = await getCollection('settings').then(
       }
 
       @include view-tablet {
-        display: flex;
+        /* display: flex; */
       }
     }
   }
