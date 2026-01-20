@@ -113,13 +113,17 @@ const displayItems = items || [];
         .logo-item {
           display: flex;
           align-items: flex-start;
-          gap: 2rem;
+          gap: 3rem;
           text-decoration: none;
           color: var(--text);
           transition: opacity 0.2s ease;
 
           @include hover {
             opacity: 0.8;
+          }
+
+          @include view-tablet-l {
+            gap: 2rem;
           }
 
           .logo-img {
@@ -142,7 +146,7 @@ const displayItems = items || [];
               @include h2;
               color: var(--secondary);
               margin: 0 0 1rem;
-              
+
               @include view-tablet-s {
                 @include h3;
               }

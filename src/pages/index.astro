@@ -33,7 +33,7 @@ const { title, description, seo, sections } = data;
 >
   <main>
     {
-      sections.map((section) => {
+      sections.map((section: any) => {
         switch (section.type) {
           case 'hero':
             return (
