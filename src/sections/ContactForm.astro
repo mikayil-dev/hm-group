@@ -1,0 +1,262 @@
+---
+interface Props {
+  id?: string | undefined;
+  heading: string;
+}
+
+const { id = 'kontakt', heading }: Props = Astro.props;
+---
+
+<script>
+  const form = document.querySelector('.contact-form') as HTMLFormElement;
+  const successAlert = document.querySelector('.alert-success');
+  const errorAlert = document.querySelector('.alert-error');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+
+    // Honeypot check - if filled, silently reject
+    if (data.website) {
+      form.classList.add('hide');
+      successAlert?.classList.remove('hide');
+      return;
+    }
+    data.subject = 'Kontaktanfrage über Website';
+
+    const EMAIL_API_URL = 'https://email.pikcode.de/api/send';
+
+    try {
+      const response = await fetch(EMAIL_API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        form.classList.add('hide');
+        successAlert?.classList.remove('hide');
+        errorAlert?.classList.add('hide');
+      } else {
+        throw new Error('Failed to send');
+      }
+    } catch {
+      errorAlert?.classList.remove('hide');
+      successAlert?.classList.add('hide');
+    }
+  });
+</script>
+
+<section id={id} class="contact">
+  <h2 class="section-heading animate right">{heading}</h2>
+
+  <form class="contact-form animate bottom" action="/api/contact" method="POST">
+    <div class="form-group hp-field" aria-hidden="true">
+      <label for="website">Website</label>
+      <input
+        type="text"
+        id="website"
+        name="website"
+        autocomplete="off"
+        tabindex="-1"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input
+        placeholder="Max Mustermann"
+        type="text"
+        id="name"
+        name="name"
+        autocomplete="name"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="email">E-Mail</label>
+      <input
+        placeholder="max.mustermann@example.org"
+        type="email"
+        id="email"
+        name="email"
+        autocomplete="email"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Telefon (optional)</label>
+      <input
+        type="tel"
+        id="phone"
+        name="phone"
+        placeholder="+49 176 1234 5678"
+        autocomplete="tel"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="message">Nachricht</label>
+      <textarea
+        id="message"
+        name="message"
+        rows="5"
+        required
+        placeholder="Ihre Nachricht"></textarea>
+    </div>
+
+    <div class="checkbox-container">
+      <label for="privacy">
+        Ich habe die <a href="/datenschutz" target="_blank"
+          >Datenschutzerklärung</a
+        > gelesen und stimme der Verarbeitung meiner Daten zu.
+      </label>
+      <input type="checkbox" id="privacy" name="privacy" required />
+    </div>
+
+    <button type="submit" value="Absenden" class="primary-btn">Absenden</button>
+  </form>
+
+  <div class="alert-success hide">
+    <p>Vielen Dank für Ihre Nachricht! Wir werden uns bald bei Ihnen melden.</p>
+  </div>
+
+  <div class="alert-error hide">
+    <p>Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.</p>
+  </div>
+</section>
+
+<style lang="scss">
+  .hide {
+    display: none !important;
+  }
+
+  .contact {
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+      margin-bottom: 40px;
+
+      @include view-mobile {
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .hp-field {
+        position: absolute;
+        left: -9999px;
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+      label {
+        display: block;
+        font-size: 1.125rem;
+        line-height: 1.5;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--secondary);
+        font-weight: 100;
+
+        a {
+          color: var(--accent);
+          text-decoration: underline;
+          text-underline-offset: 0.125rem;
+        }
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 12px 24px;
+        border: 1px solid var(--accent);
+        border-radius: 2px;
+        font-size: 1.125rem;
+        line-height: 1.5;
+        margin-bottom: 8px;
+        background-color: var(--background);
+        color: var(--text);
+
+        &:focus {
+          outline: none;
+          border-color: var(--secondary);
+        }
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+
+      .checkbox-container {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+
+        input {
+          width: fit-content;
+          margin: 0;
+          margin-top: 0.25rem;
+        }
+
+        label {
+          @include smallText;
+          letter-spacing: 0;
+          color: var(--text);
+
+          a {
+            color: var(--secondary);
+            font-size: inherit;
+          }
+        }
+      }
+    }
+
+    .alert-success,
+    .alert-error {
+      margin: 0 auto;
+      width: 100%;
+      max-width: 600px;
+      padding: 12px 24px;
+      border-radius: 2px;
+      font-size: 1.125rem;
+      line-height: 1.5;
+      text-align: center;
+
+      p {
+        margin: 0;
+      }
+    }
+
+    .alert-success {
+      background-color: #22c55e20;
+      border: 1px solid #22c55e;
+      color: #22c55e;
+    }
+
+    .alert-error {
+      background-color: #ef444420;
+      border: 1px solid #ef4444;
+      color: #ef4444;
+    }
+  }
+</style>

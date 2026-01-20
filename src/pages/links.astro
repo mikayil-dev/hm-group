@@ -1,0 +1,157 @@
+---
+import { getEntry } from 'astro:content';
+import Head from '@sections/Head.astro';
+
+const linktree = await getEntry('linktree', 'links');
+
+if (!linktree) {
+  throw new Error('Linktree content not found');
+}
+
+const { ownerName, ownerTitle, logo, links } = linktree.data;
+---
+
+<html lang="de">
+  <Head title="Links" description={`${ownerName} - ${ownerTitle}`} />
+
+  <body>
+    <main class="linktree">
+      {logo && <img src={logo} alt="Logo" class="logo" />}
+
+      <h1 class="owner-name">{ownerName}</h1>
+      <p class="owner-title">{ownerTitle}</p>
+
+      <ul class="links-list">
+        {
+          links.map((link) => (
+            <li>
+              <a
+                href={link.url}
+                class="link-item"
+                target={link.url.startsWith('http') ? '_blank' : undefined}
+                rel={link.url.startsWith('http') ? 'noopener' : undefined}
+              >
+                {link.title}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </main>
+  </body>
+</html>
+
+<style lang="scss" is:global>
+  @import 'modern-normalize/modern-normalize.css';
+
+  @font-face {
+    font-family: 'Quicksand';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('/fonts/Quicksand-VariableFont_wght.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Figtree';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('/fonts/Figtree-VariableFont_wght.woff2') format('woff2');
+  }
+
+  :root {
+    --background: #23272d;
+    --secondary: #ffffff;
+    --text: #d9d9d9;
+    --accent: #ff7700;
+    --gray: #888888;
+    --darkgray: #333333;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--background);
+    min-height: 100vh;
+    min-height: 100svh;
+    font-family: 'Figtree', system-ui, sans-serif;
+    color: var(--text);
+  }
+</style>
+
+<style lang="scss">
+  .linktree {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 20px;
+    max-width: 500px;
+    margin: 0 auto;
+    min-height: 100vh;
+    min-height: 100svh;
+
+    .logo {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      margin-bottom: 24px;
+    }
+
+    .owner-name {
+      font-family: 'Quicksand', system-ui, sans-serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--secondary);
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .owner-title {
+      font-size: 1rem;
+      color: var(--gray);
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .links-list {
+      list-style: none;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .link-item {
+      display: block;
+      width: 100%;
+      padding: 18px 24px;
+      background-color: var(--darkgray);
+      border: 1px solid var(--gray);
+      border-radius: 8px;
+      text-align: center;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 500;
+      transition: all 0.2s ease-in-out;
+
+      @media (hover: hover) {
+        &:hover {
+          border-color: var(--accent);
+          color: var(--secondary);
+          transform: translateY(-2px);
+        }
+      }
+    }
+  }
+</style>

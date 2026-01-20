@@ -1,0 +1,147 @@
+---
+import { getEntry } from 'astro:content';
+
+import config from 'project-config.ts';
+
+const settings = await getEntry('settings', 'general');
+const socialLinks = settings?.data.socialLinks ?? [];
+---
+
+<footer id="footer">
+  <div class="link-container">
+    <a href="/impressum" class="impressum">Impressum</a>
+    <a href="/datenschutz" class="datenschutz">Datenschutz</a>
+  </div>
+
+  <div class="copyright">
+    <p>&copy; {new Date().getFullYear()} {config.site.name}</p>
+    <p class="pikcode">
+      Design & Code with passion by <a
+        href="https://pikcode.de"
+        title="Mit Liebe zum Detail von PikCode erstellt"
+        target="_blank"
+        rel="noopener">PikCode <span class="pik">♠️</span></a
+      >
+    </p>
+  </div>
+
+  {
+    socialLinks.length > 0 && (
+      <div class="social-links">
+        {socialLinks.map((link) => (
+          <a
+            href={link.url}
+            class="social-link"
+            title={`Zu unserem ${link.name}-Profil`}
+            target="_blank"
+            rel="noopener"
+          >
+            <img
+              src={link.icon}
+              alt={link.name}
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
+        ))}
+      </div>
+    )
+  }
+</footer>
+
+<style lang="scss">
+  footer {
+    width: 100%;
+    padding: 40px;
+    background-color: var(--background);
+    border-top: 1px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+
+    @include view-mobile {
+      padding: 30px 20px;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    > div {
+      flex: 1 1 30%;
+    }
+
+    .link-container {
+      display: flex;
+      gap: 20px;
+
+      a {
+        color: var(--text);
+        transition: color 0.2s;
+        @include font-heading;
+        font-size: 0.875rem;
+
+        @include hover {
+          color: var(--accent);
+        }
+      }
+    }
+
+    .copyright {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+
+      p {
+        text-align: center;
+        @include smallText;
+        color: var(--gray);
+
+        &.pikcode {
+          a {
+            transition: color 0.2s;
+            font-size: inherit;
+            color: var(--secondary);
+
+            @include hover {
+              color: var(--accent);
+            }
+
+            .pik {
+              display: inline-block;
+              transition: transform 0.2s;
+            }
+
+            @include hover {
+              .pik {
+                transform: scale(1.2);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .social-links {
+      a {
+        width: fit-content;
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s;
+
+        img {
+          width: 28px;
+          height: 28px;
+        }
+
+        @include hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+</style>

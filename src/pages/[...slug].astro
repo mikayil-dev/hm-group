@@ -1,0 +1,126 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+// Section components
+import Hero from '@sections/Hero.astro';
+import Benefits from '@sections/Benefits.astro';
+import ServicesSlider from '@sections/ServicesSlider.astro';
+import TextImage from '@sections/TextImage.astro';
+import AccordionGroups from '@sections/AccordionGroups.astro';
+import ContactForm from '@sections/ContactForm.astro';
+import Video from '@sections/Video.astro';
+import Downloads from '@sections/Downloads.astro';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('pages');
+
+  return pages
+    .filter((page) => !page.data.isHomepage) // Exclude homepage, it's handled by index.astro
+    .map((page) => ({
+      params: { slug: page.data.slug },
+      props: { page },
+    }));
+}
+
+const { page } = Astro.props;
+const { title, description, seo, sections } = page.data;
+
+// Prepare meta information
+const metaTitle = seo?.metaTitle || title;
+const metaDescription = seo?.metaDescription || description;
+
+// Transform sections to include processed cardPages
+const processedSections = sections.map((section: any) => {
+  if (section.type === 'cardSection') {
+    const cardPages: Record<string, any[]> = {
+      [section.cardPages.tab1.tabName]: section.cardPages.tab1.cards,
+    };
+    if (section.cardPages.tab2) {
+      cardPages[section.cardPages.tab2.tabName] = section.cardPages.tab2.cards;
+    }
+    return { ...section, processedCardPages: cardPages };
+  }
+  return section;
+});
+---
+
+<BaseLayout title={metaTitle} description={metaDescription}>
+  <main>
+    {
+      processedSections.map((section: any) => {
+        switch (section.type) {
+          case 'hero':
+            return (
+              <Hero
+                id={section.id}
+                heading={section.heading}
+                text={section.text}
+                ctaText={section.ctaText}
+                ctaHref={section.ctaHref}
+                secondaryCtaText={section.secondaryCtaText}
+                secondaryCtaHref={section.secondaryCtaHref}
+              />
+            );
+          case 'benefits':
+            return (
+              <Benefits
+                id={section.id}
+                heading={section.heading}
+                items={section.items}
+              />
+            );
+          case 'servicesSlider':
+            return (
+              <ServicesSlider
+                id={section.id}
+                heading={section.heading}
+                introText={section.introText}
+                items={section.items}
+              />
+            );
+          case 'textImage':
+            return (
+              <TextImage
+                id={section.id}
+                heading={section.heading}
+                text={section.text}
+                media={section.media}
+                mediaAlt={section.mediaAlt}
+                mediaPosition={section.mediaPosition}
+                attribution={section.attribution}
+              />
+            );
+          case 'accordionGroups':
+            return (
+              <AccordionGroups
+                id={section.id}
+                heading={section.heading}
+                groups={section.groups}
+              />
+            );
+          case 'contactForm':
+            return <ContactForm id={section.id} heading={section.heading} />;
+          case 'video':
+            return (
+              <Video
+                id={section.id}
+                heading={section.heading}
+                video={section.video}
+              />
+            );
+          case 'downloads':
+            return (
+              <Downloads
+                id={section.id}
+                heading={section.heading}
+                items={section.items}
+              />
+            );
+          default:
+            return null;
+        }
+      })
+    }
+  </main>
+</BaseLayout>

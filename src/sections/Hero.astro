@@ -1,0 +1,254 @@
+---
+import { Image } from 'astro:assets';
+import heroImage from '@assets/images/plate.webp';
+import { parseMarkdown } from '@lib/markdown';
+
+interface Props {
+  id?: string | undefined;
+  heading: string;
+  text: string;
+  ctaText?: string | undefined;
+  ctaHref?: string | undefined;
+  secondaryCtaText?: string | undefined;
+  secondaryCtaHref?: string | undefined;
+}
+
+const {
+  id = 'home',
+  heading,
+  text,
+  ctaText,
+  ctaHref,
+  secondaryCtaText,
+  secondaryCtaHref,
+}: Props = Astro.props;
+
+const htmlText = parseMarkdown(text);
+---
+
+<section id={id} class="hero">
+  <div class="content">
+    <div class="text-container animate bottom">
+      <h1>{heading}</h1>
+      <div class="copy" set:html={htmlText} />
+
+      {
+        (ctaText || secondaryCtaText) && (
+          <div class="btn-container">
+            {ctaText && ctaHref && (
+              <a class="primary-btn" href={ctaHref}>
+                {ctaText}
+              </a>
+            )}
+            {secondaryCtaText && secondaryCtaHref && (
+              <a class="secondary-btn" href={secondaryCtaHref}>
+                {secondaryCtaText}
+              </a>
+            )}
+          </div>
+        )
+      }
+    </div>
+
+    {
+      heroImage && (
+        <div class="img-container animate bottom">
+          <Image class="hero-img" alt="" src={heroImage} />
+        </div>
+      )
+    }
+  </div>
+
+  <div class="arrow-container">
+    <button
+      class="down"
+      onclick="document.getElementById('vorteile')?.scrollIntoView({ behavior: 'smooth' })"
+    >
+      <img
+        src="/arrow-down.svg"
+        alt="Nach unten scrollen"
+        loading="eager"
+        decoding="sync"
+      />
+    </button>
+  </div>
+</section>
+
+<style lang="scss">
+  .hero {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    min-height: calc(100vh - var(--header-height));
+    min-height: calc(100lvh - var(--header-height));
+    overflow: hidden;
+    max-width: none;
+    padding: var(--section-padding);
+
+    .content {
+      display: flex;
+      gap: 40px;
+      justify-content: space-between;
+      align-items: center;
+      flex: 1;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      width: 100%;
+
+      @include view-tablet {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 80px;
+
+        .text-container {
+          order: 2;
+          max-width: none;
+        }
+
+        .img-container {
+          order: 1;
+          max-height: 30vh;
+          flex: unset;
+          width: 100%;
+          aspect-ratio: 750/500;
+        }
+      }
+
+      .text-container {
+        z-index: 1;
+        flex: 1 1 60%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        h1 {
+          margin-bottom: 24px;
+          text-transform: uppercase;
+          color: var(--text);
+          hyphens: auto;
+          hyphenate-limit-chars: 4 4 4;
+        }
+
+        .copy {
+          @include copy;
+        }
+
+        .btn-container {
+          display: flex;
+          gap: 32px;
+          margin-top: 48px;
+
+          @include view-tablet {
+            justify-content: flex-end;
+          }
+
+          @include view-mobile {
+            justify-content: flex-start;
+            margin-top: 36px;
+            flex-wrap: wrap;
+
+            a {
+              flex: 1 0 auto;
+              text-align: center;
+            }
+          }
+        }
+      }
+
+      .img-container {
+        flex: 1 1 40%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        @keyframes rotate {
+          0% {
+            transform: rotate(0deg) translateX(0px);
+          }
+
+          25% {
+            transform: rotate(-5deg) translateX(10px);
+          }
+
+          50% {
+            transform: rotate(0deg) translateX(0px);
+          }
+
+          75% {
+            transform: rotate(5deg) translateX(-10px);
+          }
+
+          100% {
+            transform: rotate(0deg) translateX(0px);
+          }
+        }
+
+        .hero-img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          object-position: center;
+          animation: rotate 5s ease-in-out infinite;
+          filter: drop-shadow(0 0 10px #ff7700);
+        }
+      }
+    }
+
+    .arrow-container {
+      margin-top: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+
+      @include view-tablet {
+        display: none;
+      }
+
+      .down {
+        appearance: none;
+        width: 48px;
+        padding: 8px;
+        height: auto;
+        border-radius: 2px;
+        border: none;
+        box-shadow: none;
+        background: transparent;
+        color: var(--background);
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        animation: arrow-down 1s ease-in-out infinite;
+
+        @keyframes arrow-down {
+          0% {
+            transform: translateY(0);
+          }
+
+          50% {
+            transform: translateY(4px);
+          }
+
+          100% {
+            transform: translateY(0);
+          }
+        }
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          object-position: center;
+          transition: all 0.2s linear;
+        }
+
+        @include hover {
+          animation-play-state: paused;
+
+          img {
+            transform: scale(1.2);
+          }
+        }
+      }
+    }
+  }
+</style>

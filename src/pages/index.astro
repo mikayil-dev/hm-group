@@ -1,0 +1,110 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+// Section components
+import Hero from '@sections/Hero.astro';
+import Benefits from '@sections/Benefits.astro';
+import ServicesSlider from '@sections/ServicesSlider.astro';
+import TextImage from '@sections/TextImage.astro';
+import AccordionGroups from '@sections/AccordionGroups.astro';
+import ContactForm from '@sections/ContactForm.astro';
+import Video from '@sections/Video.astro';
+import Downloads from '@sections/Downloads.astro';
+
+// Get the homepage from pages collection
+const pages = await getCollection('pages');
+const homepage = pages.find((page) => page.data.isHomepage);
+
+if (!homepage) {
+  throw new Error(
+    'No homepage found. Please create a page with isHomepage: true',
+  );
+}
+
+const { data } = homepage;
+const { title, description, seo, sections } = data;
+---
+
+<BaseLayout
+  title={seo?.metaTitle || title}
+  description={seo?.metaDescription || description}
+>
+  <main>
+    {
+      sections.map((section) => {
+        switch (section.type) {
+          case 'hero':
+            return (
+              <Hero
+                id={section.id}
+                heading={section.heading}
+                text={section.text}
+                ctaText={section.ctaText}
+                ctaHref={section.ctaHref}
+                secondaryCtaText={section.secondaryCtaText}
+                secondaryCtaHref={section.secondaryCtaHref}
+              />
+            );
+          case 'benefits':
+            return (
+              <Benefits
+                id={section.id}
+                heading={section.heading}
+                items={section.items}
+              />
+            );
+          case 'servicesSlider':
+            return (
+              <ServicesSlider
+                id={section.id}
+                heading={section.heading}
+                introText={section.introText}
+                items={section.items}
+              />
+            );
+          case 'textImage':
+            return (
+              <TextImage
+                id={section.id}
+                heading={section.heading}
+                text={section.text}
+                media={section.media}
+                mediaAlt={section.mediaAlt}
+                mediaPosition={section.mediaPosition}
+                attribution={section.attribution}
+              />
+            );
+          case 'accordionGroups':
+            return (
+              <AccordionGroups
+                id={section.id}
+                heading={section.heading}
+                groups={section.groups}
+              />
+            );
+          case 'contactForm':
+            return <ContactForm id={section.id} heading={section.heading} />;
+          case 'video':
+            return (
+              <Video
+                id={section.id}
+                heading={section.heading}
+                video={section.video}
+              />
+            );
+          case 'downloads':
+            return (
+              <Downloads
+                id={section.id}
+                heading={section.heading}
+                items={section.items}
+              />
+            );
+          default:
+            return null;
+        }
+      })
+    }
+  </main>
+</BaseLayout>

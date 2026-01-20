@@ -1,0 +1,192 @@
+---
+import FileDown from '~icons/lucide/file-down';
+import Search from '~icons/lucide/search';
+
+interface DownloadItem {
+  title: string;
+  file: string;
+}
+
+interface Props {
+  id?: string | undefined;
+  heading: string;
+  items: DownloadItem[];
+}
+
+const { id = 'downloads', heading, items }: Props = Astro.props;
+---
+
+<section id={id} class="downloads-section">
+  <h2 class="section-heading animate right">{heading}</h2>
+
+  <div class="search-container animate bottom">
+    <Search />
+    <input
+      type="text"
+      name="search"
+      class="search-input"
+      placeholder="Dokument suchen..."
+      autocomplete="off"
+    />
+  </div>
+
+  <ul class="downloads-list animate bottom">
+    {
+      items.map((item) => (
+        <li data-title={item.title.toLowerCase()}>
+          <a href={item.file} download class="download-link">
+            <FileDown />
+            <span>{item.title}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <p class="no-results">Keine Dokumente gefunden.</p>
+</section>
+
+<script>
+  function initDownloadsSearch() {
+    const sections = document.querySelectorAll('.downloads-section');
+
+    sections.forEach((section) => {
+      const input = section.querySelector<HTMLInputElement>('.search-input');
+      const items =
+        section.querySelectorAll<HTMLLIElement>('.downloads-list li');
+      const noResults =
+        section.querySelector<HTMLParagraphElement>('.no-results');
+
+      if (!input || !noResults) return;
+
+      input.addEventListener('input', () => {
+        const query = input.value.toLowerCase().trim();
+        let visibleCount = 0;
+
+        items.forEach((item) => {
+          const title = item.dataset.title || '';
+          const matches = fuzzyMatch(query, title);
+
+          if (matches) {
+            item.style.display = '';
+            visibleCount++;
+          } else {
+            item.style.display = 'none';
+          }
+        });
+
+        noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+      });
+    });
+  }
+
+  function fuzzyMatch(query: string, text: string): boolean {
+    if (!query) return true;
+
+    let queryIndex = 0;
+    for (let i = 0; i < text.length && queryIndex < query.length; i++) {
+      if (text[i] === query[queryIndex]) {
+        queryIndex++;
+      }
+    }
+    return queryIndex === query.length;
+  }
+
+  initDownloadsSearch();
+  document.addEventListener('astro:after-swap', initDownloadsSearch);
+</script>
+
+<style lang="scss">
+  .downloads-section {
+    .search-container {
+      max-width: 600px;
+      margin: 0 auto 24px;
+      position: relative;
+
+      :global(svg) {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        color: var(--gray);
+        pointer-events: none;
+      }
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 14px 16px 14px 48px;
+      background-color: var(--darkgray);
+      border: 1px solid var(--gray);
+      border-radius: 2px;
+      color: var(--text);
+      font-size: 1rem;
+      transition: border-color 0.2s ease-in-out;
+
+      &::placeholder {
+        color: var(--gray);
+      }
+
+      &:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+    }
+
+    .downloads-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .download-link {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 24px;
+      background-color: var(--darkgray);
+      border: 1px solid var(--gray);
+      border-radius: 2px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.2s ease-in-out;
+
+      @include hover {
+        border-color: var(--accent);
+        color: var(--secondary);
+
+        :global(svg) {
+          color: var(--accent);
+        }
+      }
+
+      :global(svg) {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+        color: var(--gray);
+        transition: color 0.2s ease-in-out;
+      }
+
+      span {
+        @include copy;
+        font-weight: 500;
+      }
+    }
+
+    .no-results {
+      display: none;
+      text-align: center;
+      color: var(--gray);
+      max-width: 600px;
+      margin: 24px auto 0;
+    }
+  }
+</style>

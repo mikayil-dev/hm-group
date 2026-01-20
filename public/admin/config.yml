@@ -1,0 +1,436 @@
+backend:
+  name: github
+  repo: mikayil-dev/hm-group
+  branch: main
+  base_url: https://sveltia-cms-auth.mikayil-gacek.workers.dev
+  app_id: Ov23liRTA1rQgB5IZndf
+
+media_folder: '/public/assets'
+public_folder: '/assets'
+
+media_libraries:
+  default:
+    config:
+      slugify_filename: true
+      max_file_size: 30720000 # 30 MB
+      transformations:
+        raster_image:
+          format: webp
+          quality: 85
+          width: 2048
+          height: 2048
+        svg:
+          optimize: true
+
+editor:
+  preview: false
+
+# Site settings (global)
+collections:
+  # Global Settings (single file)
+  - name: 'settings'
+    label: 'Einstellungen'
+    files:
+      - name: 'general'
+        label: 'Allgemeine Einstellungen'
+        file: 'src/content/settings/general.json'
+        fields:
+          - label: 'Logo'
+            name: 'logo'
+            widget: 'image'
+            required: false
+            hint: 'Das Haupt-Logo der Website'
+          - label: 'Social Media Links'
+            name: 'socialLinks'
+            widget: 'list'
+            label_singular: 'Social Link'
+            fields:
+              - {
+                  label: 'Plattform Name',
+                  name: 'name',
+                  widget: 'string',
+                  hint: 'z.B. Instagram, Facebook, LinkedIn',
+                }
+              - {
+                  label: 'URL',
+                  name: 'url',
+                  widget: 'string',
+                  hint: 'Vollständige URL zum Profil',
+                }
+              - {
+                  label: 'Icon',
+                  name: 'icon',
+                  widget: 'image',
+                  hint: 'SVG-Icon für die Plattform',
+                }
+
+  # Dynamic Pages with Block Builder
+  - name: 'pages'
+    label: 'Seiten'
+    folder: 'src/content/pages'
+    create: true
+    extension: 'json'
+    slug: '{{slug}}'
+    fields:
+      - { label: 'Titel', name: 'title', widget: 'string' }
+      - {
+          label: 'Slug',
+          name: 'slug',
+          widget: 'string',
+          pattern:
+            [
+              '^[a-z0-9]+(?:-[a-z0-9]+)*$',
+              'Nur Kleinbuchstaben und Bindestriche erlaubt (z.B. ueber-uns)',
+            ],
+        }
+      - {
+          label: 'Als Startseite festlegen',
+          name: 'isHomepage',
+          widget: 'boolean',
+          default: false,
+          required: false,
+          hint: 'Nur eine Seite sollte als Startseite markiert sein',
+        }
+      - {
+          label: 'Beschreibung',
+          name: 'description',
+          widget: 'richtext',
+          required: false,
+        }
+      - label: 'SEO'
+        name: 'seo'
+        widget: 'object'
+        required: false
+        collapsed: true
+        fields:
+          - {
+              label: 'Meta Titel',
+              name: 'metaTitle',
+              widget: 'string',
+              required: false,
+            }
+          - {
+              label: 'Meta Beschreibung',
+              name: 'metaDescription',
+              widget: 'text',
+              required: false,
+            }
+          - {
+              label: 'OG Bild',
+              name: 'ogImage',
+              widget: 'image',
+              required: false,
+            }
+      - label: 'Sektionen'
+        name: 'sections'
+        widget: 'list'
+        types:
+          # Hero Section
+          - label: 'Hero Sektion'
+            name: 'hero'
+            widget: 'object'
+            fields:
+              - {
+                  label: 'Sektions-ID',
+                  name: 'id',
+                  widget: 'string',
+                  required: false,
+                  default: 'home',
+                  hint: "Eindeutige ID für Ankerlinks (z.B. 'home')",
+                }
+              - { label: 'Überschrift', name: 'heading', widget: 'string' }
+              - { label: 'Text', name: 'text', widget: 'richtext' }
+              - {
+                  label: 'Haupt-Button Text',
+                  name: 'ctaText',
+                  widget: 'string',
+                  required: false,
+                }
+              - {
+                  label: 'Haupt-Button Link',
+                  name: 'ctaHref',
+                  widget: 'string',
+                  required: false,
+                  hint: 'URL oder #sektions-id',
+                }
+              - {
+                  label: 'Sekundär-Button Text',
+                  name: 'secondaryCtaText',
+                  widget: 'string',
+                  required: false,
+                }
+              - {
+                  label: 'Sekundär-Button Link',
+                  name: 'secondaryCtaHref',
+                  widget: 'string',
+                  required: false,
+                }
+
+          # Benefits Section
+          - label: 'Vorteile Sektion'
+            name: 'benefits'
+            widget: 'object'
+            fields:
+              - {
+                  label: 'Sektions-ID',
+                  name: 'id',
+                  widget: 'string',
+                  required: false,
+                  default: 'vorteile',
+                }
+              - {
+                  label: 'Überschrift',
+                  name: 'heading',
+                  widget: 'string',
+                  default: 'Vorteile',
+                }
+              - label: 'Vorteile Liste'
+                name: 'items'
+                widget: 'list'
+                fields:
+                  - { label: 'Icon', name: 'icon', widget: 'image' }
+                  - { label: 'Titel', name: 'title', widget: 'string' }
+              - { label: 'Text', name: 'text', widget: 'richtext' }
+
+          # Services Slider Section
+          - label: 'Leistungen Slider'
+            name: 'servicesSlider'
+            widget: 'object'
+            fields:
+              - {
+                  label: 'Sektions-ID',
+                  name: 'id',
+                  widget: 'string',
+                  required: false,
+                  default: 'leistungen',
+                }
+              - {
+                  label: 'Überschrift',
+                  name: 'heading',
+                  widget: 'string',
+                  default: 'Leistungen',
+                }
+              - {
+                  label: 'Einleitungstext',
+                  name: 'introText',
+                  widget: 'markdown',
+                  required: false,
+                }
+              - label: 'Leistungen'
+                name: 'items'
+                widget: 'list'
+                fields:
+                  - { label: 'Titel', name: 'title', widget: 'string' }
+                  - { label: 'Beschreibung', name: 'text', widget: 'richtext' }
+
+          # Text with Image/Video Section
+          - label: 'Text mit Bild/Video'
+            name: 'textImage'
+            widget: 'object'
+            fields:
+              - {
+                  label: 'Sektions-ID',
+                  name: 'id',
+                  widget: 'string',
+                  required: false,
+                  default: 'ueber',
+                }
+              - { label: 'Überschrift', name: 'heading', widget: 'string' }
+              - { label: 'Text', name: 'text', widget: 'markdown' }
+              - label: 'Bild oder Video'
+                name: 'media'
+                widget: 'file'
+                hint: 'Bild (JPG, PNG, WebP) oder Video (MP4, WebM)'
+              - {
+                  label: 'Alt-Text (für Bilder)',
+                  name: 'mediaAlt',
+                  widget: 'string',
+                  default: '',
+                  required: false,
+                }
+              - {
+                  label: 'Medien Position',
+                  name: 'mediaPosition',
+                  widget: 'select',
+                  options: ['left', 'right'],
+                  default: 'right',
+                }
+              - label: 'Bild Attribution (optional)'
+                name: 'attribution'
+                widget: 'object'
+                required: false
+                collapsed: true
+                fields:
+                  - {
+                      label: 'Text',
+                      name: 'text',
+                      widget: 'string',
+                      required: false,
+                    }
+                  - {
+                      label: 'Link',
+                      name: 'url',
+                      widget: 'string',
+                      required: false,
+                    }
+
+          # Accordion Groups Section (for FAQ / Wissenswertes)
+          - label: 'Akkordeon Gruppen'
+            name: 'accordionGroups'
+            widget: 'object'
+            fields:
+              - {
+                  label: 'Sektions-ID',
+                  name: 'id',
+                  widget: 'string',
+                  required: false,
+                }
+              - {
+                  label: 'Überschrift',
+                  name: 'heading',
+                  widget: 'string',
+                  default: 'Wissenswertes',
+                }
+              - label: 'Gruppen'
+                name: 'groups'
+                widget: 'list'
+                fields:
+                  - { label: 'Gruppen Titel', name: 'title', widget: 'string' }
+                  - {
+                      label: 'Gruppen Beschreibung',
+                      name: 'description',
+                      widget: 'richtext',
+                      required: false,
+                    }
+                  - label: 'Akkordeons'
+                    name: 'accordions'
+                    widget: 'list'
+                    fields:
+                      - { label: 'Titel', name: 'title', widget: 'string' }
+                      - { label: 'Inhalt', name: 'content', widget: 'richtext' }
+
+          # Contact Form Section
+          - label: 'Kontaktformular'
+            name: 'contactForm'
+            widget: 'object'
+            fields:
+              - {
+                  label: 'Sektions-ID',
+                  name: 'id',
+                  widget: 'string',
+                  required: false,
+                  default: 'kontakt',
+                }
+              - {
+                  label: 'Überschrift',
+                  name: 'heading',
+                  widget: 'string',
+                  default: 'Kontakt',
+                }
+
+          # Video Section
+          - label: 'Video Sektion'
+            name: 'video'
+            widget: 'object'
+            fields:
+              - {
+                  label: 'Sektions-ID',
+                  name: 'id',
+                  widget: 'string',
+                  required: false,
+                  default: 'video',
+                }
+              - { label: 'Überschrift', name: 'heading', widget: 'string' }
+              - {
+                  label: 'Video Datei',
+                  name: 'video',
+                  widget: 'file',
+                  accept: 'video/mp4,video/webm,.mp4,.webm',
+                  hint: 'MP4 oder WebM hochladen (max. 30 MB, kleiner jedoch empfohlen)',
+                }
+
+          # Downloads Section
+          - label: 'Downloads Sektion'
+            name: 'downloads'
+            widget: 'object'
+            fields:
+              - {
+                  label: 'Sektions-ID',
+                  name: 'id',
+                  widget: 'string',
+                  required: false,
+                  default: 'downloads',
+                }
+              - {
+                  label: 'Überschrift',
+                  name: 'heading',
+                  widget: 'string',
+                  default: 'Downloads',
+                }
+              - label: 'Dateien'
+                name: 'items'
+                widget: 'list'
+                label_singular: 'Datei'
+                fields:
+                  - { label: 'Titel', name: 'title', widget: 'string' }
+                  - {
+                      label: 'Datei',
+                      name: 'file',
+                      widget: 'file',
+                      hint: 'Datei hochladen',
+                    }
+
+  # Legal Pages Collection
+  - name: 'legal'
+    label: 'Rechtliches'
+    folder: 'src/content/legal'
+    create: true
+    extension: 'md'
+    slug: '{{slug}}'
+    fields:
+      - { label: 'Titel', name: 'title', widget: 'string' }
+      - {
+          label: 'Slug',
+          name: 'slug',
+          widget: 'string',
+          pattern:
+            [
+              '^[a-z0-9]+(?:-[a-z0-9]+)*$',
+              'Nur Kleinbuchstaben und Bindestriche erlaubt',
+            ],
+        }
+      - { label: 'Inhalt', name: 'body', widget: 'markdown' }
+
+  # Linktree Page
+  - name: 'linktree'
+    label: 'Link-Seite (QR Code)'
+    files:
+      - name: 'links'
+        label: 'Link-Seite'
+        file: 'src/content/linktree/links.json'
+        fields:
+          - {
+              label: 'Name des Inhabers',
+              name: 'ownerName',
+              widget: 'string',
+              default: 'Habibullah Maywand',
+            }
+          - {
+              label: 'Titel des Inhabers',
+              name: 'ownerTitle',
+              widget: 'string',
+              default: 'KFZ-Gutachter & KFZ-Techniker Meister',
+            }
+          - { label: 'Logo', name: 'logo', widget: 'image', required: false }
+          - label: 'Links'
+            name: 'links'
+            widget: 'list'
+            label_singular: 'Link'
+            fields:
+              - { label: 'Link-Titel', name: 'title', widget: 'string' }
+              - {
+                  label: 'URL',
+                  name: 'url',
+                  widget: 'string',
+                  hint: 'Für E-Mail: mailto:beispiel@email.de | Für Telefon: tel:+491234567890',
+                }

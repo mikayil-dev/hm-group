@@ -1,0 +1,245 @@
+---
+import { parseMarkdown } from '@lib/markdown';
+
+interface ServiceItem {
+  title: string;
+  text: string;
+}
+
+interface Props {
+  id?: string | undefined;
+  heading: string;
+  introText?: string | undefined;
+  items: ServiceItem[];
+}
+
+const { id = 'leistungen', heading, introText, items }: Props = Astro.props;
+
+const introHtml = introText ? parseMarkdown(introText) : undefined;
+const itemsWithHtml = items.map((item) => ({
+  ...item,
+  htmlText: parseMarkdown(item.text),
+}));
+---
+
+<script>
+  import Splide from '@splidejs/splide';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const splideEl = document.querySelector('.services-container.splide');
+    if (!splideEl) return;
+
+    const splide = new Splide(splideEl as HTMLElement, {
+      type: 'fade',
+      rewind: true,
+      arrows: false,
+    });
+
+    const dotsContainer = document.querySelector('.slider-btn-container .dots');
+    if (dotsContainer) {
+      splide.on('pagination:mounted', (data) => {
+        const ul = document.createElement('ul');
+        data.items.forEach((item) => {
+          ul.appendChild(item.li);
+        });
+        dotsContainer.appendChild(ul);
+      });
+    }
+
+    const prevBtn = document.querySelector('.slider-btn-container .prev');
+    const nextBtn = document.querySelector('.slider-btn-container .next');
+
+    prevBtn?.addEventListener('click', () => splide.go('<'));
+    nextBtn?.addEventListener('click', () => splide.go('>'));
+
+    splide.mount();
+  });
+</script>
+
+<section id={id} class="slider">
+  <h2 class="section-heading animate right">{heading}</h2>
+
+  {introHtml && <div class="subtext animate bottom" set:html={introHtml} />}
+
+  <div class="wrapper animate bottom">
+    <div class="slider-btn-container">
+      <button class="prev" type="button" aria-label="Vorherige Leistung">
+        <img src="/arrow.svg" alt="" loading="lazy" decoding="async" />
+      </button>
+      <div class="dots"></div>
+      <button class="next" type="button" aria-label="Nächste Leistung">
+        <img loading="lazy" decoding="async" src="/arrow.svg" alt="" />
+      </button>
+    </div>
+
+    <div class="services-container splide" aria-label="Leistungen">
+      <div class="splide__track">
+        <div class="splide__list">
+          {
+            itemsWithHtml.map((item) => (
+              <div class="splide__slide service">
+                <div class="text-container">
+                  <h3>{item.title}</h3>
+                  <div set:html={item.htmlText} class="service-text" />
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  @use '@splidejs/splide/css/core';
+
+  .slider {
+    .subtext {
+      margin: 0 auto;
+      margin-bottom: 48px;
+      max-width: 800px;
+      text-align: justify;
+      @include copy;
+    }
+
+    .wrapper {
+      width: 100%;
+
+      .services-container {
+        max-width: 800px;
+        margin: 0 auto;
+
+        .service {
+          border-radius: 3px;
+          background-color: var(--background);
+
+          .text-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+
+            h3 {
+              text-transform: uppercase;
+              letter-spacing: 1px;
+              line-height: 1.2;
+              width: 100%;
+              padding: 20px 24px;
+              word-break: break-word;
+              hyphens: auto;
+              hyphenate-limit-chars: 4 4 4;
+              border: 1px solid var(--accent);
+              border-right: none;
+              font-size: 1.75rem;
+
+              @include view-mobile {
+                font-size: 1.5rem;
+                letter-spacing: 0;
+              }
+            }
+
+            .service-text {
+              line-height: 1.5;
+              padding: 20px 24px;
+              border-right: 1px solid var(--accent);
+              border-bottom: 1px solid var(--accent);
+            }
+          }
+        }
+      }
+
+      .slider-btn-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 36px;
+
+        .dots {
+          :global(ul) {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            height: fit-content;
+            width: fit-content;
+            gap: 12px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+          }
+
+          :global(li) {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.2s ease-in-out;
+            height: fit-content;
+          }
+
+          :global(button) {
+            background-color: var(--background);
+            border: 1px solid var(--accent);
+            height: fit-content;
+            width: fit-content;
+            font-size: 0;
+            width: 10px;
+            height: 10px;
+            cursor: pointer;
+          }
+
+          :global(button.is-active) {
+            background-color: var(--accent);
+            color: var(--background);
+          }
+        }
+
+        button {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: none;
+          border: 1px solid var(--accent);
+          cursor: pointer;
+          padding: 1em;
+          width: 48px;
+          height: 48px;
+          overflow: hidden;
+          border-radius: 2px;
+          transition: all 0.2s ease-in-out;
+
+          @include view-mobile {
+            width: 32px;
+            height: 32px;
+            padding: 10px;
+          }
+
+          &.next {
+            img {
+              transform: rotate(-90deg);
+            }
+          }
+
+          &.prev {
+            img {
+              transform: rotate(90deg);
+            }
+          }
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            pointer-events: none;
+          }
+
+          @include hover {
+            transform: scale(1.1);
+          }
+        }
+      }
+    }
+  }
+</style>

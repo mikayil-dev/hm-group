@@ -1,0 +1,305 @@
+---
+import Head from '@sections/Head.astro';
+import Header from '@sections/Header.astro';
+import Footer from '@sections/Footer.astro';
+
+const { title, description, ogImgSrc, ogImgAlt } = Astro.props;
+---
+
+<html lang="de">
+  <Head {title} {description} {ogImgSrc} {ogImgAlt} />
+
+  <body>
+    <Header />
+
+    <main>
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>
+
+<style lang="scss" is:global>
+  @import 'modern-normalize/modern-normalize.css';
+
+  @font-face {
+    font-family: 'Quicksand';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('/fonts/Quicksand-VariableFont_wght.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Figtree';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('/fonts/Figtree-VariableFont_wght.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Figtree';
+    font-style: italic;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('/fonts/Figtree-Italic-VariableFont_wght.woff2') format('woff2');
+  }
+
+  :root {
+    --section-padding: 80px;
+    --max-width: 1280px;
+    --header-height: 80px;
+
+    --background: #23272d;
+    --secondary: #ffffff;
+    --text: #d9d9d9;
+    --accent: #ff7700;
+    --header-bg: rgba(35, 39, 45, 0.95);
+    --border-color: #444444;
+    --gray: #888888;
+    --darkgray: #333333;
+
+    @include view-tablet {
+      --section-padding: 60px 40px;
+    }
+
+    @include view-mobile {
+      --section-padding: 40px 20px;
+      font-size: 14px;
+    }
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-margin-top: 80px;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 16px;
+  }
+
+  body {
+    background-color: var(--background);
+    min-height: 100vh;
+    min-height: 100svh;
+
+    *:focus {
+      outline: none;
+    }
+
+    *:focus-visible {
+      outline: 2px dotted var(--accent);
+    }
+  }
+
+  a {
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  button {
+    cursor: pointer;
+    border: none;
+    border-radius: 0;
+    appearance: none;
+    background-color: transparent;
+  }
+
+  .primary-btn {
+    @include font-heading;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 1em 2em;
+    border: 2px solid var(--accent);
+    background-color: var(--accent);
+    color: var(--background);
+    transition: 0.3s;
+    line-height: 1;
+    font-weight: 600;
+    font-size: 1rem;
+
+    @include hover {
+      background-color: transparent;
+      color: var(--accent);
+    }
+  }
+
+  .secondary-btn {
+    @include font-heading;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 1em 2em;
+    font-weight: 600;
+    border: 2px solid var(--secondary);
+    background-color: transparent;
+    color: var(--secondary);
+    transition: 0.3s;
+    line-height: 1;
+    font-size: 1rem;
+
+    @include hover {
+      background-color: var(--secondary);
+      color: var(--background);
+    }
+  }
+
+  h1 {
+    @include h1;
+  }
+
+  h2 {
+    @include h2;
+  }
+
+  .section-heading {
+    @include section-heading;
+  }
+
+  h3 {
+    @include h3;
+  }
+
+  h4 {
+    @include h4;
+  }
+
+  h5 {
+    @include h5;
+  }
+
+  h6 {
+    @include h6;
+  }
+
+  p,
+  a,
+  li {
+    @include copy;
+  }
+
+  small {
+    @include smallText;
+  }
+
+  strong {
+    font-weight: bold;
+    color: var(--secondary);
+  }
+
+  main {
+    width: 100%;
+    height: 100%;
+
+    @include ol;
+    @include ul;
+  }
+
+  section,
+  article {
+    overflow: hidden;
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--section-padding);
+  }
+
+  article {
+    max-width: 900px;
+
+    > * + * {
+      margin-top: 1.25em;
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      margin: 2em 0 1em;
+      border-bottom: 2px solid var(--accent);
+      width: fit-content;
+      padding-bottom: 0.25em;
+
+      &:first-child {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+
+      p {
+        all: inherit;
+      }
+    }
+
+    blockquote {
+      padding: 20px;
+      font-style: italic;
+      background-color: var(--darkgray);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      margin: 2em 0;
+    }
+
+    pre {
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid var(--accent);
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+  }
+
+  .animate {
+    opacity: 0;
+    transition:
+      filter 0.8s ease-out,
+      transform 0.8s ease-out,
+      opacity 0.8s ease-out;
+    filter: blur(8px);
+
+    &.left {
+      transform: translateX(-30px);
+    }
+
+    &.right {
+      transform: translateX(30px);
+    }
+
+    &.top {
+      transform: translateY(-30px);
+    }
+
+    &.bottom {
+      transform: translateY(30px);
+    }
+
+    &.visible {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateX(0) translateY(0);
+    }
+  }
+
+  // Overwrite for Splidejs Slider jumpy animation
+  .splide__sr {
+    display: none !important;
+  }
+</style>

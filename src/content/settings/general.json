@@ -1,0 +1,10 @@
+{
+  "logo": "/assets/logo-transparent.svg",
+  "socialLinks": [
+    {
+      "name": "Instagram",
+      "url": "https://www.instagram.com/hm_kfz_sv/",
+      "icon": "/assets/instagram.svg"
+    }
+  ]
+}
