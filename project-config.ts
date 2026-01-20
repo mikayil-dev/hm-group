@@ -34,7 +34,7 @@ interface ProjectConfig {
 export default {
   adapter: 'static',
   site: {
-    name: 'HM KFZ-Zulassung & Transfer',
+    name: 'HM Group',
     url: 'https://group-hm.de',
     lang: 'de',
   },
@@ -54,9 +54,9 @@ export default {
   },
   head: {
     titleSeperator: ' | ',
-    titleSuffix: 'HM KFZ-Zulassung & Transfer',
+    titleSuffix: 'HM Group',
     description:
-      'HM KFZ-Zulassung & Transfer – Ihr zuverlässiger Partner für alle organisatorischen Aufgaben rund um Ihr Fahrzeug. Wir übernehmen für Sie Behördengänge, Zulassungen und Fahrzeugtransfers.',
+      'Die HM Group vereint Fachkompetenz, Erfahrung und Service rund ums Fahrzeug. Ob Sachverständigenwesen, Automobile Service oder Kfz-Zulassung & Transfer – bei uns erhalten Sie klare Lösungen, kurze Wege und einen festen Ansprechpartner.',
   },
   modules: {
     blog: {
