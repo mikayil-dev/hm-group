@@ -7,6 +7,8 @@ const settings = await getEntry('settings', 'general');
 const socialLinks = settings?.data.socialLinks ?? [];
 ---
 
+<div class="footer-border"></div>
+
 <footer id="footer">
   <div class="link-container">
     <a href="/impressum" class="impressum">Impressum</a>
@@ -50,11 +52,21 @@ const socialLinks = settings?.data.socialLinks ?? [];
 </footer>
 
 <style lang="scss">
+  .footer-border {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      #ffff00 0% 33.33%,
+      #ff7700 33.33% 66.67%,
+      #1eff00 66.67% 100%
+    );
+  }
+
   footer {
     width: 100%;
     padding: 40px;
     background-color: var(--background);
-    border-top: 1px solid var(--accent);
     display: flex;
     align-items: center;
     justify-content: space-between;
