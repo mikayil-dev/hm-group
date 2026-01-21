@@ -4,7 +4,19 @@
   "logo": "/assets/sv-logo.svg",
   "links": [
     {
-      "title": "Zur Webseite",
+      "title": "Zur Group Webseite",
+      "url": "https://group-hm.de"
+    },
+    {
+      "title": "Zur Sachverständigen Webseite",
+      "url": "https://group-hm.de"
+    },
+    {
+      "title": "Zur Zulassung & Transfer Webseite",
+      "url": "https://group-hm.de"
+    },
+    {
+      "title": "Zur Automobile Service Webseite",
       "url": "https://group-hm.de"
     },
     {
