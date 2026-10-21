@@ -4,6 +4,7 @@ function getRobotsTxt(sitemapURL: URL): string {
   return `\
 User-agent: *
 Allow: /
+Disallow: /admin/
 
 Sitemap: ${sitemapURL.href}
 `;

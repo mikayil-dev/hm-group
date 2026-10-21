@@ -25,7 +25,8 @@ export default defineConfig({
   },
   integrations: [
     mdx(),
-    sitemap(),
+    // The CMS at /admin/ is not a page for search engines.
+    sitemap({ filter: (page) => !new URL(page).pathname.startsWith('/admin') }),
     blog({ enabled: config.modules.blog.enabled }),
   ],
   markdown: {
